@@ -24,5 +24,12 @@ Sıkılaştırma işlemi paket yöneticisi yardımıyla yüklenen vsftpd sunucus
 
 
 ###vsftp Sunucusunun Sıkılaştırılması
+Sıkılaştırma işlemini gerçekleştirebilmek için etc dizini altında vsftp sunucusunun yapılandırma dosyasında değişiklik yapılması gerekmektedir. Tercih ettiğiniz bir dosya editörü vasıtasıyla vsftpd.conf dosyasını açın.
+
+   sudo nano /etc/vsftp.conf
+ 
+ FTP sunucuları dosya paylaşımı amaçlı geliştirildiğinden anonim girişlere izinlidir. Ancak sunucunuzu güven altına alabilmek için bu özelliğin kapatılması gerekmetedir bu sebeple _anonymous_enable_ değişkenini bulup "NO" yapın.
+    anonymous_enable=NO
+
 
 ###vsftp Sunucusunun SSL/TLS Desteği Eklenmesi
