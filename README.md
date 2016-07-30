@@ -18,6 +18,10 @@ Daha detaylı bilgi, performans analizleri, güvenlik analizleri için geliştir
 Bu klavuzda vsftpd sunucusunun sıkılaştırılması ve SSL/TLS desteğine kavuşturulması için adımlar anlatılacaktır. Bu adımları manul olarak yapabileceğiniz gibi hem sıkılaştırma işlemi için hemde SSL/TLS desteği için hazırlanmış betikleri kullanmaznızda mümkündür. Tüm adımlar Ubuntu 14.04.4 LTS ve Kali Linux 2016-1 işletim sistemleri üzerinde test edilmiştir.
 
 ###vsftp Sunucusunun Kurulumu
+Sıkılaştırma işlemi paket yöneticisi yardımıyla yüklenen vsftpd sunucusuna uygulanmıştır. Kaynak kod üzerinden derleme yaparak kurulum yapılmış sunucu için birçok adım aynı olsada değişiklik yapılacak yapılandırma dosyanının dizini değişiklik gösterebilir. vsftpd sunucusunu yüklemek için terminalden aşağıdaki komutu girmek yeterlidir.
+
+    sudo apt-get install vsftpd 
+
 
 ###vsftp Sunucusunun Sıkılaştırılması
 
