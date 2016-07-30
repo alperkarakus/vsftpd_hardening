@@ -29,6 +29,7 @@ Sıkılaştırma işlemini gerçekleştirebilmek için etc dizini altında vsftp
    sudo nano /etc/vsftp.conf
  
  FTP sunucuları dosya paylaşımı amaçlı geliştirildiğinden anonim girişlere izinlidir. Ancak sunucunuzu güven altına alabilmek için bu özelliğin kapatılması gerekmetedir bu sebeple _anonymous_enable_ değişkenini bulup "NO" yapın.
+ 
     anonymous_enable=NO
 
 
