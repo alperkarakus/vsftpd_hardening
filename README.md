@@ -10,7 +10,7 @@ vsftpd GPL lisanslı *NIX systemler için geliştirilmiş bir FTP (File Transfer
   * IPv6 Desteği
   * SSL Desteği
   * ve daha fazlası
- Daha detaylı bilgi, performans analizleri, güvenlik analizleri için geliştiricinin sitesine göz [burdan](https://security.appspot.com/vsftpd.html) atabilirsiniz.
+Daha detaylı bilgi, performans analizleri, güvenlik analizleri için geliştiricinin sitesine göz [burdan](https://security.appspot.com/vsftpd.html) atabilirsiniz.
   redhat,suse,debian,freebsd,gnu,gnome,kde,kernel ve çok daha fazla açık kaynak organizasyonları FTP server olarak vsftpd tercih etmektedir.
 
 ## vsftpd Sunucusu Sıkılaştırma Klavuzu
