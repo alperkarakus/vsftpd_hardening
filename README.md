@@ -34,3 +34,4 @@ Sıkılaştırma işlemini gerçekleştirebilmek için etc dizini altında vsftp
 
 
 ###vsftp Sunucusunun SSL/TLS Desteği Eklenmesi
+FTP yapısı gereği clear text bir protokoldür. Yani paketler şifrelenmeden açık metin şekilde ağ üzerinde gönderilirler. vsftpd sunucusu secure FTP desteği sunmaktadır. Hatta 3.03 sürümüyle SSL/TLS iyileştirmeleri yapılmıştır. Bu adımda vsftpd sunucusuna SSL/TLS desteğini nasıl ekleyebileceğimizi anlatacağım.
