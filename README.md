@@ -37,9 +37,9 @@ Sıkılaştırma işlemi paket yöneticisi yardımıyla yüklenen vsftpd sunucus
      sudo mkdir /home/ftpuser/dosyalar
      sudo chown ftpkullanıcısı:ftpkullanıcısı /home/ftpkullanıcısı/dosyalar
  
-Sıkılaştırma işlemini gerçekleştirebilmek için etc dizini altında vsftp sunucusunun yapılandırma dosyasında değişiklik yapılması gerekmektedir. Oluşturduğum vsftpd_hardening.sh betik dosyası ile aşağıda anlatacağım işlemleri tek komutla yapmak mümkündür. Bunun için sadece süper kullanıcı yetkisiyle betiği çalıştırmak yeterlidir.
+Sıkılaştırma işlemini gerçekleştirebilmek için etc dizini altında vsftp sunucusunun yapılandırma dosyasında değişiklik yapılması gerekmektedir. Oluşturduğum vsftpd_hardening.py betik dosyası ile aşağıda anlatacağım işlemleri tek komutla yapmak mümkündür. Bunun için sadece süper kullanıcı yetkisiyle betiği çalıştırmak yeterlidir.
 
-    sudo vsftpd_hardening.sh
+    sudo vsftpd_hardening.py
 
 Ancak betiğin gerçekleştirdiği adımları tek tek uygulamak da mümkündür. Tercih ettiğiniz bir dosya editörü vasıtasıyla vsftpd.conf dosyasını açın.
 
