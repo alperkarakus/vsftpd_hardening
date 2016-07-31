@@ -100,3 +100,5 @@ FTP yapısı gereği clear text bir protokoldür. Yani paketler şifrelenmeden a
      ssl_ciphers=HIGH
  
  Artık yapılandırma dosyasını kaydederek çıkabiliriz.
+ 
+ Tüm bu adımlar tamamlandığında nerdeyse güvenli bir FTP sunucusu kurmuş oluyoruz.
