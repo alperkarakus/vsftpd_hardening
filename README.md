@@ -45,24 +45,24 @@ Ancak betiğin gerçekleştirdiği adımları tek tek uygulamak da mümkündür.
 
    sudo nano /etc/vsftp.conf
  
- FTP sunucuları dosya paylaşımı amaçlı geliştirildiğinden anonim girişlere izinlidir. Ancak sunucunuzu güven altına alabilmek için bu özelliğin kapatılması gerekmetedir bu sebeple _anonymous_enable_ değişkenini bulup "NO" yapın.
+ FTP sunucuları dosya paylaşımı amaçlı geliştirildiğinden anonim girişlere izinlidir. Ancak sunucunuzu güven altına alabilmek için bu özelliğin kapatılması gerekmetedir bu sebeple _anonymous_enable_ değişkenini bulup "NO" yapın. Ön tanımlı olarak değer "NO" gelmektedir.
  
     anonymous_enable=NO
  
-  Yerel kullanıcı yetkilendirmek için _local_enable_ değişkeni bulunarak yorum dışına alınduktan sonra "YES" olarak tanımlanmalıdır ve bu dizine kullanıcıların yazma hakkı elde edebilmeleri için _write_enable_ değişkenide "YES" olarak tanımlanmalıdır.
+  Yerel kullanıcı yetkilendirmek için _local_enable_ değişkeni bulunarak yorum dışına alınduktan sonra "YES" olarak tanımlanmalıdır ve bu dizine kullanıcıların yazma hakkı elde edebilmeleri için _write_enable_ değişkenide "YES" olarak tanımlanmalıdır. Ön tanımlı olarak _local_enable_ değişkeni "YES" gelmektedir.  Ön tanımlı olarak _write_enable_ değişkeni yorum içerisinde gelmektedir.
 
     local_enable=YES
     write_enable=YES
  
- Son olarak _chroot_local_user_ değişkeni bulunmalı ve değeri YES olarak atanmalıdır. Böylece yerel kullanıcılar sunucuya bağlandıklarında sadece tanımlı dizine erişebilirler ve farklı dizinlerde yazma okuma ve görme gibi yetkileri olmaz.
+ Son olarak _chroot_local_user_ değişkeni bulunmalı ve değeri YES olarak atanmalıdır. Böylece yerel kullanıcılar sunucuya bağlandıklarında sadece tanımlı dizine erişebilirler ve farklı dizinlerde yazma okuma ve görme gibi yetkileri olmaz. Ön tanımlı olarak _chroot_local_user_ değişkeni yorum içerisinde gelmektedir.
  
     chroot_local_user=YES
 
-Ana başlıklar (Banner) bilgisayar korsanlarının bilgi toplama esnasında çalışan servisleri ve sürümlerini öğrenerek saldırı planlamada ki en büyük yardımcılarıdır. Bu sebeple vsftpd servisinin ana başlığını _#ftpd_banner=Welcome to blah FTP service._ değişkenini yorum dışına alarak "FTP Sunucusu"'na eşitleyelim. 
+Ana başlıklar (Banner) bilgisayar korsanlarının bilgi toplama esnasında çalışan servisleri ve sürümlerini öğrenerek saldırı planlamada ki en büyük yardımcılarıdır. Bu sebeple vsftpd servisinin ana başlığını _#ftpd_banner=Welcome to blah FTP service._ değişkenini yorum dışına alarak "FTP Sunucusu"'na eşitleyelim. Ön tanımlı olarak _ftpd_banner_ değişkeni yorum içerisinde gelmektedir.
 
-    #ftpd_banner=FTP Sunucusu
+    ftpd_banner=FTP Sunucusu
  
- Standart log formatnı değiştirerek sıkılaştırma işlemimizi tamamlayabiliriz. Bunun için _xferlog_std_format_ değişkeni bulunarak "NO" değerine eşitlenmelidir.
+ Standart log formatnı değiştirerek sıkılaştırma işlemimizi tamamlayabiliriz. Bunun için _xferlog_std_format_ değişkeni bulunarak "NO" değerine eşitlenmelidir. Ön tanımlı olarak _xferlog_std_format_ değişkeni yorum içerisinde gelmektedir.
  
     xferlog_std_format=NO
 
@@ -77,7 +77,7 @@ FTP yapısı gereği clear text bir protokoldür. Yani paketler şifrelenmeden a
  
  Oluşturduğumuz yeni sertifika 1 yıl geçerliliği vardır ve _/etc/ssl/private/_ dizini altında bulunabilir.
  
- Tekrar vsftpd sunucusunun yapılandırma dosyasına girerek SSL/TLS desteğini etkinleştirmek için gerekli değişkenler tanımlanmalı ve eklenmelidir. Öncelikle sertifikamızın yerini sunucuya tanıtmalıyız bunun için _rsa_private_key_file_ değişkeni bulunmalı yoksa eklenmelidir ve değeri gerekli dizine eşitlenmelidir.
+ Tekrar vsftpd sunucusunun yapılandırma dosyasına girerek SSL/TLS desteğini etkinleştirmek için gerekli değişkenler tanımlanmalı ve eklenmelidir. Öncelikle sertifikamızın yerini sunucuya tanıtmalıyız bunun için _rsa_private_key_file_ değişkeni bulunmalı yoksa eklenmelidir ve değeri gerekli dizine eşitlenmelidir. Ön tanımlı olarak  _rsa_private_key_file_ değişkeni "/etc/ssl/private/ssl-cert-snakeoil.key" değerine eşit gelmektedir. 
  
      rsa_private_key_file=/etc/ssl/private/vsftpd.pem
  
