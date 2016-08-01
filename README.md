@@ -12,21 +12,21 @@ vsftpd GPL lisanslı *NIX systemler için geliştirilmiş bir FTP (File Transfer
   * ve daha fazlası
 
 Daha detaylı bilgi, performans analizleri, güvenlik analizleri için geliştiricinin sitesine [burdan](https://security.appspot.com/vsftpd.html) göz atabilirsiniz.
-  redhat,suse,debian,freebsd,gnu,gnome,kde,kernel ve çok daha fazla açık kaynak organizasyonları FTP server olarak vsftpd tercih etmektedir.
+  redhat, suse, debian, freebsd, gnu, gnome, kde, kernel ve çok daha fazla açık kaynak organizasyonları FTP sunucu olarak vsftpd tercih etmektedir.
 
 ## vsftpd Sunucusu Sıkılaştırma Klavuzu
-Bu klavuzda vsftpd sunucusunun sıkılaştırılması ve SSL/TLS desteğine kavuşturulması için adımlar anlatılacaktır. Bu adımları manul olarak yapabileceğiniz gibi hem sıkılaştırma işlemi için hemde SSL/TLS desteği için hazırlanmış betikleri kullanmaznızda mümkündür. Tüm adımlar Ubuntu 14.04.4 LTS ve Kali Linux 2016-1 işletim sistemleri üzerinde test edilmiştir.
+Bu klavuzda vsftpd sunucusunun sıkılaştırılması ve SSL/TLS desteğine kavuşturulması için adımlar anlatılacaktır. Bu adımları manuel olarak yapabileceğiniz gibi hem sıkılaştırma işlemi için hemde SSL/TLS desteği için hazırlanmış betikleri kullanmaznızda mümkündür.Kali Linux 2016-1 işletim sistemleri üzerinde test edilmiştir.
 
 ###vsftp Sunucusunun Kurulumu
 Sıkılaştırma işlemi paket yöneticisi yardımıyla yüklenen vsftpd sunucusuna uygulanmıştır. Kaynak kod üzerinden derleme yaparak kurulum yapılmış sunucu için birçok adım aynı olsada değişiklik yapılacak yapılandırma dosyanının dizini değişiklik gösterebilir. vsftpd sunucusunu yüklemek için terminalden aşağıdaki komutu girmek yeterlidir.
 
-    sudo apt-get install vsftpd 
+    apt-get install vsftpd 
 
 
 ###vsftp Sunucusunun Sıkılaştırılması
 Öncelikle kullanıcıların her işlem için özel olması güvenliği artıran politikalardan biridir. Bu sebeple bir ftp kullanıcısı oluşturarak bağlantıyı bu kullanıcı üzerinden gerçekleştirmek güvenliği artıran faktörlerden biri olacaktır. Bu işlem için önce kullanıcı oluşturalım.
 
-    sudo adduser ftpkullanıcısı
+    adduser ftpkullanıcısı
  
  ftpkullanıcısını ana dizinine root yetkisi atanmalıdır.
  
@@ -34,16 +34,17 @@ Sıkılaştırma işlemi paket yöneticisi yardımıyla yüklenen vsftpd sunucus
  
  vsftpd sunucusunun dosya yükleme işlemini gerçekleştireceği ayrı bir dizini oluşturmamız gerkecek bu işlem için aşağıdaki komutlar girilmelidir.
  
-     sudo mkdir /home/ftpuser/dosyalar
-     sudo chown ftpkullanıcısı:ftpkullanıcısı /home/ftpkullanıcısı/dosyalar
+     mkdir /home/ftpuser/dosyalar
+     chown ftpkullanıcısı:ftpkullanıcısı /home/ftpkullanıcısı/dosyalar
  
-Sıkılaştırma işlemini gerçekleştirebilmek için etc dizini altında vsftp sunucusunun yapılandırma dosyasında değişiklik yapılması gerekmektedir. Oluşturduğum vsftpd_hardening.py betik dosyası ile aşağıda anlatacağım işlemleri tek komutla yapmak mümkündür. Bunun için sadece süper kullanıcı yetkisiyle betiği çalıştırmak yeterlidir.
+Sıkılaştırma işlemini gerçekleştirebilmek için etc dizini altında vsftp sunucusunun yapılandırma dosyasında değişiklik yapılması gerekmektedir. Oluşturduğum vsftpd_hardening.py betik dosyası ile aşağıda anlatacağım işlemleri tek komutla yapmak mümkündür. Bunun için sadece süper kullanıcı yetkisiyle betiği çalıştırmak yeterlidir. Kali Linux root kullanıcısı ile çalıştığı için hiç bir komutun önüne sudo komutunu eklemedim. Betik indirildikten sonra çalışma yetkisi verilmeli ve çalıştırılmalıdır. Betik sadece ilk kurulum sonrası değiştirilmemiş yapılandırma dosyasında çalışır. Her hangi bir değişiklik yapılmış yapılandırma dosyasında farklı sonuçlar doğurabilir. Bu sebeple betik vsftp.conf dosyanın bir yedeğini etc dizini altında vsftpd.conf.old adı altında saklamaktadır.
 
-    sudo vsftpd_hardening.py
+    chmod 755 vsftpd_hardening.py 
+    ./vsftpd_hardening.py
 
 Ancak betiğin gerçekleştirdiği adımları tek tek uygulamak da mümkündür. Tercih ettiğiniz bir dosya editörü vasıtasıyla vsftpd.conf dosyasını açın.
 
-   sudo nano /etc/vsftp.conf
+   nano /etc/vsftp.conf
  
  FTP sunucuları dosya paylaşımı amaçlı geliştirildiğinden anonim girişlere izinlidir. Ancak sunucunuzu güven altına alabilmek için bu özelliğin kapatılması gerekmetedir bu sebeple _anonymous_enable_ değişkenini bulup "NO" yapın. Ön tanımlı olarak değer "NO" gelmektedir.
  
@@ -67,9 +68,10 @@ Ana başlıklar (Banner) bilgisayar korsanlarının bilgi toplama esnasında ça
     xferlog_std_format=NO
 
 ###vsftp Sunucusunun SSL/TLS Desteği Eklenmesi
-FTP yapısı gereği clear text bir protokoldür. Yani paketler şifrelenmeden açık metin şekilde ağ üzerinde gönderilirler. vsftpd sunucusu secure FTP desteği sunmaktadır. Hatta 3.03 sürümüyle SSL/TLS iyileştirmeleri yapılmıştır. Bu adımda vsftpd sunucusuna SSL/TLS desteğini nasıl ekleyebileceğimizi anlatacağım. Anlattığım işlemleri gerçekleştiren vsftp_tls_enable.py betik dosyasını süper kullanıcı yetkisiyle çalıştırarak aşağıdaki işlemlerin tamamnı tek komutla tamamlayabilirsiniz.
+FTP yapısı gereği clear text bir protokoldür. Yani paketler şifrelenmeden açık metin şekilde ağ üzerinde gönderilirler. vsftpd sunucusu secure FTP desteği sunmaktadır. Hatta 3.03 sürümüyle SSL/TLS iyileştirmeleri yapılmıştır. Bu adımda vsftpd sunucusuna SSL/TLS desteğini nasıl ekleyebileceğimizi anlatacağım. Anlattığım işlemleri gerçekleştiren vsftp_tls_enable.py betik dosyasını süper kullanıcı yetkisiyle çalıştırarak aşağıdaki işlemlerin tamamnı tek komutla tamamlayabilirsiniz. vsftpd_hardening betiğinde olduğu gibi bu betikte sadece vsftpd_hardening.py betiği çalıştırıldıktan sonra yapılandırma dosyanı doğru biçimde değiştirebilir. Bu yüzden mutasyonların önüne geçebilmek için vsftpd.conf yapılandırma dosyanın yedeği etc dizini altında vsftpd.conf.old dosyasına alnmaktadır. vsftpd servisi 3.0.3 sürümüyle beraber public/private anahtarlarını beraberinde getirmektedir. Bu yüzden yeni sertifika oluşturma gereği görülmemiştir. Ancak eski sürümlerin sıkılaştırması için sertifika oluşturmayı anlatacağım. Betik sertifika oluşturmak dışında tüm yapılandırma işlemlerini gerçekleştirmektedir. Önce betiğe çalışma yetkisi verdikten sonra süper kullanıcı yetkisiyle çaıştıralım.
 
-    sudo vsftp_tls_enable.py
+    chmod 755 vsftpd_tls_enable.py
+    ./vsftp_tls_enable.py
 
 Öncelikle bir SSL sertifikası oluşturmamız gerekmekte bunun için  aşağıdaki komut girilerek işlemi tamamlayabiliriz.
 
@@ -77,7 +79,7 @@ FTP yapısı gereği clear text bir protokoldür. Yani paketler şifrelenmeden a
  
  Oluşturduğumuz yeni sertifika 1 yıl geçerliliği vardır ve _/etc/ssl/private/_ dizini altında bulunabilir.
  
- Tekrar vsftpd sunucusunun yapılandırma dosyasına girerek SSL/TLS desteğini etkinleştirmek için gerekli değişkenler tanımlanmalı ve eklenmelidir. Öncelikle sertifikamızın yerini sunucuya tanıtmalıyız bunun için _rsa_private_key_file_ değişkeni bulunmalı yoksa eklenmelidir ve değeri gerekli dizine eşitlenmelidir. Ön tanımlı olarak  _rsa_private_key_file_ değişkeni "/etc/ssl/private/ssl-cert-snakeoil.key" değerine eşit gelmektedir. 
+ Tekrar vsftpd sunucusunun yapılandırma dosyasına girerek SSL/TLS desteğini etkinleştirmek için gerekli değişkenler tanımlanmalı ve eklenmelidir. Öncelikle sertifikamızın yerini sunucuya tanıtmalıyız bunun için _rsa_private_key_file_ değişkeni bulunmalı yoksa eklenmelidir ve değeri gerekli dizine eşitlenmelidir. Ön tanımlı olarak  _rsa_private_key_file_ değişkeni "/etc/ssl/private/ssl-cert-snakeoil.key" değerine eşit gelmektedir. Betik dosyası vsftpd servisinin 3.0.3 sürümü için geliştirildiğinden bu değişken ve sertifika değişkeni ön tanımlı değerleri bozulmadan kullanılmıştır.
  
      rsa_private_key_file=/etc/ssl/private/vsftpd.pem
  
@@ -102,3 +104,5 @@ FTP yapısı gereği clear text bir protokoldür. Yani paketler şifrelenmeden a
  Artık yapılandırma dosyasını kaydederek çıkabiliriz.
  
  Tüm bu adımlar tamamlandığında nerdeyse güvenli bir FTP sunucusu kurmuş oluyoruz.
+ Ömer Alper Karakuş
+ 151111032
